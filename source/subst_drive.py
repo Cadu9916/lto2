@@ -3,6 +3,7 @@ import json
 JSON_PATH = "config/config.json"
 FILES_PATH = "files_data/"
 
+successfully_substituted = False
 
 def substitution_config():
     with open(JSON_PATH, "r") as f:
@@ -26,8 +27,11 @@ def substitute_drive(words_json):
         words[i] = words[i].replace(words[i][:4], words_json)
     
     return words
-def export_back():
-    pass
+
+def export_back(words):
+    with open(FILES_PATH + "teste 2.txt", "w") as f:
+        for word in words:
+            f.write(word + "\n")
 
 def main():
 
@@ -36,26 +40,44 @@ def main():
     print("Substitute file drive in path")
     print(30 * "=")
     print("Gathering data from config file...")
+    try:
+        words_json_config = substitution_config()
 
-    words_json_config = substitution_config()
-
-    if words_json_config == "":
-        print("No substitution data found.")
-        return
+        if words_json_config == "":
+            print("No substitution data found.")
+            return successfully_substituted
+        
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return successfully_substituted
     
     print("Config data gathered successfully")
     print(30 * "-")
     print("Substituing file drive in path")
     print("Gathering changed data...")
 
-    final_subst = substitute_drive(words_json_config)
-    
-    if final_subst == "":
-        print("No data found.")
-        return
+    try:
+        final_subst = substitute_drive(words_json_config)
+        
+        if final_subst == "":
+            print("No data found.")
+            return successfully_substituted
+        
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return successfully_substituted
     
     print("Changed data gathered successfully")
     print(30 * "-")
+    print("Exporting data back to file...")
+
+    export_back(final_subst)
+
+    print("Data exported successfully")
+    
+    successfully_substituted = True
+    return successfully_substituted
+
 
 if __name__ == "__main__":
     main()
