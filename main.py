@@ -1,0 +1,6 @@
+print(30 * "=")
+print("1 - Replace file drive")
+print("2 - Create local db")
+print("3 - Export to MySQL")
+print("4 - Configuration")
+print(30 * "=")
