@@ -33,7 +33,7 @@ def export_back(words):
         for word in words:
             f.write(word + "\n")
 
-def main():
+def main_subst():
 
     words_json_config = ""
 
@@ -76,8 +76,11 @@ def main():
     print("Data exported successfully")
     
     successfully_substituted = True
+
+    print(". . .")
+
     return successfully_substituted
 
 
 if __name__ == "__main__":
-    main()
+    main_subst()
