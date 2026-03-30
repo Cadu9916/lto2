@@ -15,14 +15,27 @@ def create_table(conn):
     return True 
 
 def filling_data(conn):
-        with open('files_data/teste 2.txt', 'r') as file:
-                for line in file:
-                        print(line)
-                        tipo_fita, numero_fita, diretorio = line.strip().split(';')
-                        print(f"Dir: {diretorio}, Tipo: {tipo_fita}, Numero: {numero_fita}")
-                        c = conn.cursor()
-                        c.execute("INSERT INTO fitas (diretorio, tipo_fita, numero_fita) VALUES (?, ?, ?)",
-                                  (diretorio, tipo_fita, int(numero_fita)))
+        try:
+                with open('files_data/teste 2.txt', 'r') as file:
+                        for line in file:
+                                #print(line)
+                                #print(f"Dir: {diretorio}, Tipo: {tipo_fita}, Numero: {numero_fita}")
+                                tipo_fita, numero_fita, diretorio = line.strip().split(';')
+                                c = conn.cursor()
+                                c.execute("SELECT * FROM fitas WHERE diretorio=? AND tipo_fita=? AND numero_fita=?", (diretorio, tipo_fita, int(numero_fita)))
+                                result = c.fetchone()
+                                if result[1] == diretorio and result[3] == int(numero_fita):
+                                        print(f"Data {diretorio}, {tipo_fita} {numero_fita} already exists in the database. Skipping insertion.")
+                                       
+                                
+                                #c.execute("INSERT INTO fitas (diretorio, tipo_fita, numero_fita) VALUES (?, ?, ?)",
+                                #        (diretorio, tipo_fita, int(numero_fita)))
+                conn.commit()
+                return True
+        
+        except Exception as e:
+                print(f"Error occurred while filling data: {e}")
+                return False
 
 def main_local_db():
         print("Creating local database")
