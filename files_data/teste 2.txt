@@ -1,3 +1,3 @@
-H://diretorio_teste2.wav
-H://diretorio teste3.wav
-H://diretorio_teste1.wav
+LTO;1;diretorio_teste2.wav
+LTO;1;diretorio teste3.wav
+LTO;1;diretorio_teste1.wav

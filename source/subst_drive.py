@@ -75,11 +75,9 @@ def main_subst():
 
     print("Data exported successfully")
     
-    successfully_substituted = True
-
     print(". . .")
 
-    return successfully_substituted
+    return successfully_substituted == True
 
 
 if __name__ == "__main__":
